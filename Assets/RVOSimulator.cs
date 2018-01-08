@@ -33,6 +33,8 @@ public class RVOSimulator : MonoBehaviour {
 
         Vector3 facingOrigin = new Vector3(0, 0, 0);
 
+        int agentToDislocateIndex = Random.Range(0, agents - 1);
+
         for (int i = 0; i < agents; i++)
         {
             float angle = ((float)i / agents) * (float)System.Math.PI * 2;
@@ -43,6 +45,11 @@ public class RVOSimulator : MonoBehaviour {
 
             go.transform.parent = transform;
             go.transform.position = pos;
+            if (i == agentToDislocateIndex)
+            {
+                pos.x += 3.0f;
+                go.transform.position = pos;
+            }
 
             Vector3 dir = (facingOrigin - go.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(dir);
